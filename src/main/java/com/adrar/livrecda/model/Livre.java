@@ -16,6 +16,18 @@ public class Livre {
     @Column(name="date_publication")
     private Date datePublication;
 
+    @ManyToOne
+    @JoinColumn(name = "auteur_id")
+    private Auteur auteur;
+
+    public Auteur getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(Auteur auteur) {
+        this.auteur = auteur;
+    }
+
     public Livre() {}
 
     public Livre(String titre, String description, Date datePublication) {
