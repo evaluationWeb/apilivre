@@ -67,6 +67,7 @@ public class Livre {
     public void setDatePublication(Date datePublication) {
         this.datePublication = datePublication;
     }
+
     @Override
     public String toString() {
         return "Livre [" +  titre + ", " +  description + " ]";

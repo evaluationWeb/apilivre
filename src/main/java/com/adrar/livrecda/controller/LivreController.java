@@ -1,5 +1,6 @@
 package com.adrar.livrecda.controller;
 
+import com.adrar.livrecda.dto.LivreDto;
 import com.adrar.livrecda.exception.LivreNotFoundException;
 import com.adrar.livrecda.model.Livre;
 import com.adrar.livrecda.repository.LivreRepository;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 public class LivreController {
@@ -40,5 +42,10 @@ public class LivreController {
     @PatchMapping("/livre/{id}")
     public Optional<Livre> updateLivre(@PathVariable Long id, @RequestBody Livre livre) {
         return livreService.updateLivreById(id, livre);
+    }
+
+    @GetMapping("/livredto/{id}")
+    public Stream<LivreDto>getLivredto(@PathVariable Long id) {
+        return livreService.getLivreToDto(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.adrar.livrecda.service;
 
+import com.adrar.livrecda.dto.LivreDto;
 import com.adrar.livrecda.exception.LivreFoundException;
 import com.adrar.livrecda.exception.LivreNotFoundException;
 import com.adrar.livrecda.model.Livre;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class LivreService {
@@ -54,4 +56,9 @@ public class LivreService {
         return Optional.empty();
     }
 
+
+    public Stream<LivreDto> getLivreToDto(Long id) {
+        return livreRepository.findById(id).stream()
+                .map(LivreDtoWrapper::toDto);
+    }
 }
