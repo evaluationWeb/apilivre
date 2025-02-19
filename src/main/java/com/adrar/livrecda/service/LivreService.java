@@ -1,5 +1,7 @@
 package com.adrar.livrecda.service;
 
+import com.adrar.livrecda.exception.LivreFoundException;
+import com.adrar.livrecda.exception.LivreNotFoundException;
 import com.adrar.livrecda.model.Livre;
 import com.adrar.livrecda.repository.LivreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,17 @@ public class LivreService {
     }
 
     //Méthode qui retourne un livre par son id
-    public Optional<Livre> getLivreById(Long id) {
-        return livreRepository.findById(id);
+    public Livre getLivreById(Long id) {
+        return livreRepository.findById(id)
+                .orElseThrow(()-> new LivreNotFoundException(id));
     }
 
     //Méthode qui ajoute un livre dans la BDD
     public Livre saveLivre(Livre livre) {
+       Optional<Livre> verifLivre = Optional.ofNullable(livreRepository.findByTitre(livre.getTitre()));
+        if(verifLivre.isPresent()) {
+            throw new LivreFoundException(livre);
+        }
         return livreRepository.save(livre);
     }
 
